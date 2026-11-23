@@ -1,0 +1,11 @@
+numpy
+scipy
+scikit-learn
+pandas
+matplotlib
+tqdm
+opencv-python
+insightface
+onnxruntime
+torch
+torchvision
