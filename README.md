@@ -2,29 +2,29 @@
 
 ### Model Choice
 
-**Option 1**: ArcFace (InsightFace, buffalo_l), our main model
+**Option 1**: ArcFace (InsightFace, buffalo_l) or our main model
 
-- Widely used, strong face recognition model that cleanly separates identities.
-- Easy to set up: one pip package handles detection, alignment, and the 512-D embedding.
+- It's widely used for strong face recognition model that cleanly separates identities.
+- It's easy to set up: one pip package handles detection, alignment, and the 512-D embedding.
 - Its face detector copes reasonably well with profile faces.
 
-**Option 2:** AdaFace (IR-101), our comparison model
+**Option 2:** AdaFace (IR-101) or our comparison model
 
-- Built to handle degraded images, so it may do better on our noisy and blurred probes.
-- More setup work: clone the GitHub repo, download the weights, align faces ourselves.
+- It's built to handle degraded images, so it may do better on our noisy and blurred probe images.
+- There is more setup work: clone the GitHub repo, download the weights, and align the images' faces.
 
 **Plan**
 
-- Run both with the same preprocessing and binarization.
-- The model with the higher d′ becomes our final system for Q2–Q7.
-- The other appears in Q1 as "alternative tested," in a small comparison table.
-- Get ArcFace working end to end first, then add AdaFace.
+- ArcFace is generating binary templates for 41.8 minutes and currently providing the d'value = 7.18999 since the histogram is properly separating the scores' distrubutions.
+- Try AdaFace to see if its final results > ArcFace's current results.
+- Run these 2 models with the same preprocessing and binarization techniques.
+- The model with the high d′ becomes our final system for Q2–Q7.
+- Get ArcFace working end to end first. Then, add AdaFace.
 
-**Binarization (for both)*
+**Binarization (for both)**
 
-- Normalize the embedding, project it to more dimensions with a fixed random matrix, and set each bit to 1 if the value is above 0, otherwise 0.
+- Normalize the embedding, project it to more dimensions with a fixed random matrix, and set each bit to 1 if the embedding value >= 0. If not, then set the bit to 0.
 - Compare templates with normalized Hamming distance.
-
 
 ### Extra-credit flow: concatenating bit strings
 
@@ -40,4 +40,4 @@ Each image (gallery AND probe)
                                                      │
         New 994 × 994 score matrix for the weakest condition (from Q7)
                                                      │
-        Revised d′  →  Δd′ = revised d′ − baseline d′  (need Δd′ > 1.5)
+        Revised d′ →  Δd′ = revised d′ − baseline d′  (need Δd′ > 1.5)
